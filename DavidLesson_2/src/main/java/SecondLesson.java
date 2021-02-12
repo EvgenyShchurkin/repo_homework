@@ -3,7 +3,19 @@ public class SecondLesson {
     public static void main(String[] args) {
         int[]a = new int[8];
         int[]b ={1, 5, 3, 2, 11, 4, 5, 2, 4, 8, 9, 1};
+        int[]q ={1, 5, 3, 10, 0, 0, 0, 2, 4, 8, 0, 4,1};
         int[][]c= new int[10][10];
+        int[] z = {1,2,3,4,5,6,7,8,9};
+        int[] u = {1,2,3,4,5,6,7,8,9};
+        SeventhMethod(z,5);
+        for (int i = 0; i < z.length; i++) {
+            System.out.print(z[i]+" ");
+        }
+        System.out.println();
+        FinalArrMove(u,5);
+        for (int i = 0; i < z.length; i++) {
+            System.out.print(z[i]+" ");
+        }
     }
 
 
@@ -112,6 +124,37 @@ public class SecondLesson {
                     arr[i - 1] = tmp;
                 }
             }
+        }
+    }
+    public static int MaxDivisor(int a, int b) {         //поиск наибольшего общего делителя двух чисел
+        while (a != b) {
+            if (a > b) {
+                a = a - b;
+            }
+            else {
+                b = b - a;
+            }
+        }
+        return a;
+    }
+    public static void FinalArrMove(int[] arr, int n) {
+        int tmp;
+        if (n>=arr.length) {
+            n%=arr.length;
+        }
+        int index = n-1;
+        for (int i = 0; i < (arr.length - MaxDivisor(arr.length, n)); i++) {
+            index++;
+            if(index== arr.length){
+                int arrlong=arr.length/n;
+                index=n*arrlong;            //перемещение индекса в конец массива
+            }
+            if(index<=i){
+                index= arr.length-1;
+            }
+            tmp = arr[i];
+            arr[i] = arr[index];
+            arr[index] = tmp;
         }
     }
 }
