@@ -7,12 +7,12 @@ public class SecondLesson {
         int[][]c= new int[10][10];
         int[] z = {1,2,3,4,5,6,7,8,9};
         int[] u = {1,2,3,4,5,6,7,8,9};
-        SeventhMethod(z,5);
+        SeventhMethod(z,-10);
         for (int i = 0; i < z.length; i++) {
             System.out.print(z[i]+" ");
         }
         System.out.println();
-        FinalArrMove(u,5);
+        FinalArrMove(u,-10);
         for (int i = 0; i < z.length; i++) {
             System.out.print(z[i]+" ");
         }
@@ -127,6 +127,7 @@ public class SecondLesson {
         }
     }
     public static int MaxDivisor(int a, int b) {         //поиск наибольшего общего делителя двух чисел
+        b=Math.abs(b);
         while (a != b) {
             if (a > b) {
                 a = a - b;
@@ -139,22 +140,43 @@ public class SecondLesson {
     }
     public static void FinalArrMove(int[] arr, int n) {
         int tmp;
-        if (n>=arr.length) {
+        if (Math.abs(n)>=arr.length) {
             n%=arr.length;
         }
-        int index = n-1;
-        for (int i = 0; i < (arr.length - MaxDivisor(arr.length, n)); i++) {
-            index++;
-            if(index== arr.length){
-                int arrlong=arr.length/n;
-                index=n*arrlong;            //перемещение индекса в конец массива
+        if(n==0){
+            return;
+        }
+        else if(n>0){
+            int index = n-1;
+            for (int i = 0; i < (arr.length - MaxDivisor(arr.length, n)); i++) {
+                index++;
+                if(index== arr.length){
+                    int arrlong=arr.length/n;
+                    index=n*arrlong;            //перемещение индекса в конец массива
+                }
+                if(index<=i){
+                    index= arr.length-1;
+                }
+                tmp = arr[i];
+                arr[i] = arr[index];
+                arr[index] = tmp;
             }
-            if(index<=i){
-                index= arr.length-1;
+        }
+        else{
+            int index = arr.length+n;
+            for (int i = arr.length -1; i>MaxDivisor(arr.length, n)-1; i--) {
+                index--;
+                if (index == -1) {
+                    int arrlong = arr.length / n;
+                    index = arr.length-1 -n*arrlong;            //перемещение индекса в начало массива
+                }
+                if (index >= i) {
+                    index = 0;
+                }
+                tmp = arr[i];
+                arr[i] = arr[index];
+                arr[index] = tmp;
             }
-            tmp = arr[i];
-            arr[i] = arr[index];
-            arr[index] = tmp;
         }
     }
 }
